@@ -10,7 +10,7 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   return (
     <div className="font-sans p-4">
-      <h1 className="text-3xl">Welcome to Remix</h1>
+      <h1 className="text-3xl">Welcome</h1>
       <ul className="list-disc mt-4 pl-6 space-y-2">
         <li>
           <a
@@ -43,6 +43,14 @@ export default function Index() {
           </a>
         </li>
       </ul>
+      <hr />
+      <h1 className="text-3xl">My Profile</h1>
+      <img src="\image\profileme.jpg" alt="" style={{ width: "25%;"}} />
+      <ul className="list-disc mt-4 pl-6 space-y-2">
+        <li>Patipat Chanseetid</li>
+        <li>Class : Information Technology</li>
+        <li>Email : <a href="mailto:patipat.cha@rmutto.ac.th">Contact me</a></li>
+          </ul>
     </div>
   );
 }
