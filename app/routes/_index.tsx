@@ -1,8 +1,9 @@
 import type { MetaFunction } from "@remix-run/node";
+import Mycard from "./mycard";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "New Remix App" },
+    { title: "Patipat" },
     { name: "description", content: "Welcome to Remix!" },
   ];
 };
@@ -10,6 +11,7 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   return (
     <div className="font-sans p-4">
+      <Mycard />
       <h1 className="text-3xl">Welcome</h1>
       <ul className="list-disc mt-4 pl-6 space-y-2">
         <li>
