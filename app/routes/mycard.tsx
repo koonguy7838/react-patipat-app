@@ -1,6 +1,13 @@
+import { useState } from "react";
 import { card } from "./data";
 
-function IsMember ({ active } : { active: boolean }){
+function IsMember (
+    { 
+        active
+    } : { 
+        active: boolean
+    }
+){
     if(active){
         return <span>🟢 Hi, VIP Menber</span>
     }else{
@@ -8,7 +15,28 @@ function IsMember ({ active } : { active: boolean }){
     }
 }
 
-function Profile ({id, name, bio, bgProf, userIcon, username, createAt, active} : {id:number, name:string, bio:any, bgProf:string, userIcon:string, username:string, createAt:string, active:boolean}) {
+function Profile 
+(
+    {
+        id,
+        name,
+        bio, 
+        bgProf, 
+        userIcon, 
+        username, 
+        createAt, 
+        active
+    } : {
+        id:number, 
+        name:string, 
+        bio:any, 
+        bgProf:string, 
+        userIcon:string, 
+        username:string, 
+        createAt:string, 
+        active:boolean
+    }
+) {
     return (
         <div className="max-w-sm w-full lg:max-w-full lg:flex">
             <div className="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" style={{backgroundImage: `url(${userIcon})`, color: "#38AFD9"}} title={username}>
@@ -39,11 +67,17 @@ function Profile ({id, name, bio, bgProf, userIcon, username, createAt, active} 
 }
 
 export default function Mycard () {
+    const [ btnActive, setActive ] = useState(true);
     const name = "Patipat";
     const note = "Welcome my name is Guy";
     const chk = true;
+    const note2 = "Test999999999999999999";
 
-    const cardItem = card.map(cardItem => 
+    const item = card.filter(
+        cardItem => cardItem.active == btnActive
+    );
+
+    const cardItem = item.map(cardItem => 
         <Profile
             id={cardItem.id}
             name={cardItem.name}
@@ -55,13 +89,43 @@ export default function Mycard () {
             active={cardItem.active}
         />
     );
+
+    function handleClickActive(){
+        console.log("---> handleClickActive"+btnActive);
+        setActive(true);
+    }
+
+    function handleClickNonActive(){
+        console.log("---> handleClickActive"+btnActive);
+        setActive(false);
+    }
     
     return (
-           <>
-           <h1>Mycard : {name}</h1> <br />
-           <p>{note}</p> <br />
-           {/* <Profile /> */}
-           {cardItem}
-           </> 
+        <div className="m-3 bg-teal-700 rounded-xl">
+            <h1 className="text-xl">Mycard : {name}</h1> <br />
+            <div className="flex flex-row">
+                <div className="flex-1 flex m-2 p-2 bg-blue-300 rounded-xl text-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z" />
+                </svg>
+                {note}</div> <br />
+                <div className="flex-1 flex m-2 p-2 bg-green-300 rounded-xl text-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z" />
+                </svg>
+                {note2}
+                </div>
+            </div>
+            {/* <Profile /> */}
+            <div className="m-2 p-2">{cardItem}</div>
+            <hr />
+            <div className="flex flex-row">
+                <button className="flex-1 m-3 p-1 bg-green-700 text-green-100 rounded-xl" onClick={ handleClickActive }>Active</button>
+                <button className="flex-1 m-3 p-1 bg-red-700 text-red-100 rounded-xl" onClick={ handleClickNonActive }>NonActive</button>
+            </div>
+            <hr />
+        </div> 
     );
 }
