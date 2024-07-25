@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { card } from "./data";
+import Index from "./_index";
 
 function IsMember (
     { 
@@ -79,6 +80,7 @@ export default function Mycard () {
 
     const cardItem = item.map(cardItem => 
         <Profile
+            key={cardItem.id}
             id={cardItem.id}
             name={cardItem.name}
             bio={cardItem.bio}

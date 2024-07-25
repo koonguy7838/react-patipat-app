@@ -53,6 +53,7 @@ export default function Index() {
         <li>Class : Information Technology</li>
         <li>Email : <a href="mailto:patipat.cha@rmutto.ac.th">Contact me</a></li>
           </ul>
+          <a href="mySculptureList">mySculptureList</a>
     </div>
   );
 }
