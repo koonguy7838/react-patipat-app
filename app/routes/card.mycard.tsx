@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { card } from "./data";
 import Index from "./_index";
-
+import Navbar from "./Template/Nav";
 function IsMember (
     { 
         active
@@ -15,6 +15,8 @@ function IsMember (
         return <span>🔴 Menber Only</span>
     }
 }
+
+
 
 function Profile 
 (
@@ -62,6 +64,9 @@ function Profile
                     <p className="text-gray-600">{createAt}</p>
                 </div>
                 </div>
+                <a href={`/card/${id}`}>
+                    <button className="text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 m-2">ViewMore</button>
+                </a> 
             </div>
         </div>
     );
@@ -78,7 +83,7 @@ export default function Mycard () {
         cardItem => cardItem.active == btnActive
     );
 
-    const cardItem = item.map(cardItem => 
+    const cardItem = item.map(cardItem => (
         <Profile
             key={cardItem.id}
             id={cardItem.id}
@@ -90,7 +95,7 @@ export default function Mycard () {
             createAt={cardItem.createAt}
             active={cardItem.active}
         />
-    );
+    ));
 
     function handleClickActive(){
         console.log("---> handleClickActive"+btnActive);
@@ -103,31 +108,32 @@ export default function Mycard () {
     }
     
     return (
-        <div className="m-3 bg-teal-700 rounded-xl">
+        <div>
+        <Navbar />
+        <div className="p-3 bg-teal-700 rounded-xl">
             <h1 className="text-xl">Mycard : {name}</h1> <br />
             <div className="flex flex-row">
                 <div className="flex-1 flex m-2 p-2 bg-blue-300 rounded-xl text-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z" />
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 6h.008v.008H6V6Z" />
                 </svg>
                 {note}</div> <br />
                 <div className="flex-1 flex m-2 p-2 bg-green-300 rounded-xl text-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z" />
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 6h.008v.008H6V6Z" />
                 </svg>
                 {note2}
                 </div>
             </div>
             {/* <Profile /> */}
             <div className="m-2 p-2">{cardItem}</div>
-            <hr />
             <div className="flex flex-row">
                 <button className="flex-1 m-3 p-1 bg-green-700 text-green-100 rounded-xl" onClick={ handleClickActive }>Active</button>
                 <button className="flex-1 m-3 p-1 bg-red-700 text-red-100 rounded-xl" onClick={ handleClickNonActive }>NonActive</button>
             </div>
-            <hr />
+            </div>
         </div> 
     );
 }

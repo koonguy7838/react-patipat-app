@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Navbar from "./Template/Nav";
 let nextId = 0;
 export default function CreateCard(){
     const [name, setName] = useState('');
@@ -24,7 +25,9 @@ export default function CreateCard(){
     }
 
     return (
-        <div className="font-sans p-12">
+        <div>
+            <Navbar />
+        <div className="font-sans">
             <div className="bg-teal-700 rounded-xl p-4 m-2">
                 <h1 className="text-[32px]">เพิ่มข้อมูลนามบัตร</h1>
                 <div className="m-4 grid grid-rows ">
@@ -70,6 +73,7 @@ export default function CreateCard(){
                     </tbody>
                 </table>
             </div>
+        </div>
         </div>
     );
 
