@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Navbar from "./Template/Nav";
 let nextId = 0;
+
 export default function CreateCard(){
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');

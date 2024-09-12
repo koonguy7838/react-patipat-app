@@ -18,7 +18,7 @@ app.get('/api/myProfile', (req, res) => {
     myHtml+="<p>Email: patipat.cha@rmutto.ac.th</p>"
     res.set(`Content-Type`, 'text/html');
     res.end(myHtml);
-});
+});ช
 
 // http://localhost:3000/api/getProfile/u100/o200
 app.get('/api/getProfile/:userId/:orderId', (req, res) => {

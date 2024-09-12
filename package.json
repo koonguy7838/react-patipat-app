@@ -8,13 +8,16 @@
     "dev": "remix vite:dev",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "start": "remix-serve ./build/server/index.js",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "serv": "node --no-warnings ./server/guyApi.js"
   },
   "dependencies": {
     "@remix-run/node": "^2.10.1",
     "@remix-run/react": "^2.10.1",
     "@remix-run/serve": "^2.10.1",
     "cors": "^2.8.5",
+    "firebase": "^10.13.1",
+    "firebase-admin": "^12.4.0",
     "isbot": "^4.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
