@@ -1,5 +1,7 @@
 import express from "express";
 import admin from "firebase-admin";
+import bodyParser from "body-parser";
+import cors from 'cors';
 
 import serviceAccount from"./config/react-app-patipat-firebase.json" with { type: "json" };
 
@@ -10,6 +12,9 @@ admin.initializeApp({
 const db = admin.firestore();
 const app = express();
 const port = 3000;
+
+app.use(bodyParser.json());
+app.use(cors());
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}.`);
@@ -31,9 +36,18 @@ function addBook(){
   console.log('Book added.');
 }
 
-app.get('/addBook', (req, res) => {
-  addBook();
-  res.end('added new book.');
+async function addBookNew(tmp){
+  const bookRef = db.collection('Books').doc();
+  const docRef = db.collection('Books').doc(bookRef.id);
+  await docRef.set(tmp);
+  console.log('Book added.');
+}
+
+app.post('/api/addBook', (req, res) => {
+  const { bookTitle, bookDesc, bookCat, bookStock } = req.body;
+  const tmpData = { bookTitle, bookDesc, bookCat, bookStock };
+  addBookNew(tmpData);
+  res.status(200).json({message: 'บันทึกสำเร็จ'});
 });
 
 async function fetchBook(){
@@ -49,7 +63,7 @@ async function fetchBook(){
   return JSON.stringify(result);
 }
 
-app.get('/getBooks', async (req, res) => {
+app.get('/api/getBooks', async (req, res) => {
   res.set('content-type', 'application/json');
   fetchBook().then((jsonData) => {
     res.send(jsonData);
