@@ -7,23 +7,49 @@ export default function BookLists(){
     const [bookData, setBookData] = useState([]);
 
     useEffect(() => {
-        try{
-            const fetchData = async() => {
-                const book = await fetch(
-                    'http://localhost:3000/api/getBooks'
-                );
-                if(book.ok){
-                    const bookJson= await book.json();
-                    setBookData(bookJson);
-                }else{
-                    alert('error ไม่สามารถอ่านข้อมูลได้');
+        if(loadstatus == true){
+            try{
+                const fetchData = async() => {
+                    const book = await fetch(
+                        'http://localhost:3000/api/getBooks'
+                    );
+                    if(book.ok){
+                        const bookJson= await book.json();
+                        setBookData(bookJson);
+                    }else{
+                        alert('error ไม่สามารถอ่านข้อมูลได้');
+                    }
                 }
+                fetchData().catch(console.error);
+                setLoadStatus(false)
+                console.log('fetch data');
+            } catch (error) {
+                alert('error อ่านข้อมูลผิดพลาด');
             }
-            fetchData().catch(console.error);
-        } catch (error) {
-            alert('error อ่านข้อมูลผิดพลาด');
+        }   
+    }, [loadstatus]);
+
+    const handleDelete = (bookCode) => {
+        //alert(กำลังลบหนังสือรหัส: ${bookCode});
+        try {
+            const fetchData = async() => {
+                const data = await fetch(
+                `http://localhost:3000/api/deleteBook/${bookCode}`,
+                {
+                    method: 'DELETE'
+                }
+            );if(data.ok){
+                const myJson = await data.json();
+                alert(myJson.message);
+            }else{
+                alert('[ERR] การลบข้อมูลไม่สำเร็จ!!!')
+            }   
         }
-    });
+        fetchData();
+        } catch (error) {
+            alert("Error : เกิดข้อผิดพลาด" + error)
+        }
+    }
 
     return(
         <div className="m-3">
@@ -38,7 +64,7 @@ export default function BookLists(){
                         <div className="p-2 m-2 border">
                             <a href={`/sec02/bookDetail/${item.id}`}>[ รายละเอียด ]</a>
                             <a href={`/sec02/bookEdit/${item.id}`}>[ แก้ไข ]</a>
-                            <a href={`/sec02/bookDelete/${item.id}`}>[ ลบ ]</a>
+                            <button onClick={(e) => handleDelete(`${item.id}`)}>[ ลบ ]</button>
                         </div>
                     </>
                 )

@@ -39,7 +39,13 @@ function addBook(){
 async function addBookNew(tmp){
   const bookRef = db.collection('Books').doc();
   const docRef = db.collection('Books').doc(bookRef.id);
-  await docRef.set(tmp);
+  let myData = {
+    bookCode: bookRef.id,
+    title: tmp.bookTitle,
+    description: tmp.description,
+    category: tmp.bookCat
+  }
+  await docRef.set(myData);
   console.log('Book added.');
 }
 
@@ -48,6 +54,19 @@ app.post('/api/addBook', (req, res) => {
   const tmpData = { bookTitle, bookDesc, bookCat, bookStock };
   addBookNew(tmpData);
   res.status(200).json({message: 'บันทึกสำเร็จ'});
+});
+
+async function deleteBook(bookCode) {
+  const docRef = db.collection('Books').doc(bookCode)
+  // .where("bookCode", "=", bookCode);
+  await docRef.delete();
+  console.log('Book Deleted.');
+}
+
+app.delete('/api/deleteBook/:bookCode', (req, res) => {
+  const { bookCode } = req.params;
+  deleteBook(bookCode);
+  res.status(200).json({message: '[INFO] ลบข้อมูลหนังสือสำเร็จ'});
 });
 
 async function fetchBook(){
